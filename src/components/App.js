@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-
+import './app.css';
 import Header from "./Header";
 import Movie from "./Movie";
 import spinner from "../assets/ajax-loader.gif";
@@ -7,19 +7,20 @@ import Search from "./Search";
 import { initialState, reducer } from "../store/reducer";
 import axios from "axios";
 
+
 const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b";
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    axios.get(MOVIE_API_URL).then(jsonResponse => {
-      dispatch({
-        type: "SEARCH_MOVIES_SUCCESS",
-        payload: jsonResponse.data.Search
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(MOVIE_API_URL).then(jsonResponse => {
+  //     dispatch({
+  //       type: "SEARCH_MOVIES_SUCCESS",
+  //       payload: jsonResponse.data.Search
+  //     });
+  //   });
+  // }, []);
 
   // you can add this to the onClick listener of the Header component
   const refreshPage = () => {
@@ -52,7 +53,7 @@ const App = () => {
 
   const retrievedMovies =
     loading && !errorMessage ? (
-      <img className="spinner" src={spinner} alt="Loading spinner" />
+      <img className="spinner hidden"  alt="Loading spinner" />
     ) : errorMessage ? (
       <div className="errorMessage">{errorMessage}</div>
     ) : (
@@ -70,7 +71,9 @@ const App = () => {
 
         <p className="App-intro">Sharing a few of our favourite movies</p>
 
-        <div className="movies">{retrievedMovies}</div>
+        <div className="movies">
+         
+          {retrievedMovies}</div>
       </div>
     </div>
   );
